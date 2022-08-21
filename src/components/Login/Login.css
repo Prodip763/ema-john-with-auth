@@ -1,0 +1,94 @@
+.from-container {
+    width: 600px;
+    margin: 0 auto;
+    top: 208px;
+    border: 1px solid #95A0A7;
+    box-sizing: border-box;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    box-shadow:5px 10px #FFE0B3;
+
+}
+
+.from-title {
+    font-size: 35px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    color: #2A414F;
+}
+.input-group{
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    margin-left: 5px;
+    display: block;
+}
+
+.input-group input {
+    width: 415px;
+    height: 55px;
+    border: 1px solid #95A0A7;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 24px;
+}
+
+.from-submit{
+    width: 415px;
+    height: 55px;
+    background-color: #FF99004D;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.from-link{
+    color: #FF9900;
+    text-decoration: none;
+}
+.link{
+    text-align: center;
+}
+.or{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.or div{
+    width: 145px;
+    height: 0px;
+    border: 1px solid #95A0A7;
+    margin: 20px;
+
+}
+.image{
+    width: 40px;
+    height: 30px;
+    margin-right: 2px;
+}
+.btn{
+    width: 415px;
+    height: 55px;
+    background-color: #ffff;
+    border: 2px solid #468fea;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.btn-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 205px;
+    height: 32px;
+    padding-left: 96px;
+    
+    
+}
+.btn-list p{
+    font-weight: 400;
+}

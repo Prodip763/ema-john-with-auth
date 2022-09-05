@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 
 
 const SignUp = () => {
+
+    const [signInWithGoogle, gmailUser, gmailLoading, gmailError] = useSignInWithGoogle(auth);
 
     const [email, setEmail]  = useState('');
     const [password, setPassword] = useState('');
@@ -23,7 +25,16 @@ const SignUp = () => {
     const handleConfirmPasswordBlur = e =>{
         setConfirmPassword(e.target.value);
     }
-    if(user){
+    if (gmailError) {
+        return (
+          <div>
+            <p style={{color: 'red'}}>Error: {error?.message} {gmailError.message}</p>
+          </div>
+        );
+      }
+
+
+    if(user || gmailUser){
         navigate('/shop');
     }
     const handleCreateUser = e =>{
@@ -72,7 +83,7 @@ const SignUp = () => {
                     <p>Or</p>
                     <div></div>
                 </div>
-                <button className="btn"><div className="btn-list"><img className="image" src="https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1"></img><p>Continue with Google</p></div></button>
+                <button onClick={()=>signInWithGoogle()} className="btn"><div className="btn-list"><img className="image" src="https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1"></img><p>Continue with Google</p></div></button>
             </div>
         </div>
     );

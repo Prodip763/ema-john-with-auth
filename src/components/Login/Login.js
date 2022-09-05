@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { Link,useNavigate, useLocation } from "react-router-dom";
 import auth from "../../firebase.init";
 import './Login.css';
@@ -7,6 +7,7 @@ import './Login.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [signInWithGoogle, gmailUser, gmailLoading, gmailError] = useSignInWithGoogle(auth);
     const [signInWithEmailAndPassword,user,loading,error] = useSignInWithEmailAndPassword(auth);
     const navigate =useNavigate();
     const location = useLocation();
@@ -18,13 +19,22 @@ const Login = () => {
     const handlePasswordBlur= e =>{
         setPassword(e.target.value);
     }
-    if(user){
+    if (error || gmailError) {
+        return (
+          <div>
+            <p style={{color: 'red'}}>Error: {error?.message} {gmailError.message}</p>
+          </div>
+        );
+      }
+
+    if(user || gmailUser){
         navigate(from, {replace: true});
     }
     const hanleUserSignIn = e =>{
         e.preventDefault();
         signInWithEmailAndPassword(email, password);
     }
+    
 
     return (
         <div className="from-container">
@@ -43,10 +53,10 @@ const Login = () => {
                         </label>
                         <input onBlur={handlePasswordBlur} type='password' name="password" id=" required"></input>
                     </div>
-                    <p style={{color: 'red'}}>{error?.message}</p>
+                    {/* <p style={{color: 'red'}}>{error?.message}</p>
                     {
                         loading && <p>Loading...</p>
-                    }
+                    } */}
                     <input className="from-submit" type='submit' value='Login'></input>
                 </form>
                 <p className="link"><small>New to Ema-John? <Link className="from-link" to='/signup'>Create an account</Link></small></p>
@@ -55,7 +65,7 @@ const Login = () => {
                     <p>Or</p>
                     <div></div>
                 </div>
-                <button className="btn"><div className="btn-list"><img className="image" src="https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1"></img><p>Continue with Google</p></div></button>
+                <button onClick={()=>signInWithGoogle()} className="btn"><div className="btn-list"><img className="image" src="https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1"></img><p>Continue with Google</p></div></button>
             </div>
         </div>
     );
